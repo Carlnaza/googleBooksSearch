@@ -2,12 +2,14 @@
 import { createContext } from 'react'
 
 const BookContext = createContext({
-  books: [],
-  query: '',
   bookSearchInput: '',
+  query: '',
   searchedBooks: [],
+  books: [],
   handleInputChange: () => { },
-  handleInputSearch: () => { }
+  handleInputSearch: () => { },
+  handleSaveBook: (i) => { },
+  handleDeleteBook: (id) => { }
 })
 
 export default BookContext

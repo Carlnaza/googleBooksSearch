@@ -3,6 +3,7 @@ import Saved from './pages/Saved'
 import Search from './pages/Search'
 import { Route } from 'react-router-dom'
 import BookContext from './utils/BookContext'
+import Book from './utils/Books'
 import axios from 'axios';
 
 function App() {
@@ -31,6 +32,25 @@ function App() {
       })
       .catch(e => console.error(e))
   }
+
+  bookState.handleSaveBook = i => {
+    let savedBook = JSON.parse(JSON.stringify(bookState.searchedBooks[i]))
+    let books = JSON.parse(JSON.stringify(bookState.books))
+
+    Book.create(savedBook)
+
+    books.push(savedBook)
+    setBookState({ ...bookState, books})
+  }
+
+  bookState.handleDeleteBook = (id) => {
+    Book.delete(id)
+      .then(() => {
+        let books = JSON.parse(JSON.stringify(bookState.books))
+        setBookState({ ...bookState, books})
+      })
+      .catch(e => console.error(e))
+  } 
 
   return (
     <BookContext.Provider value={bookState}>

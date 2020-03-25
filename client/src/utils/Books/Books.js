@@ -2,8 +2,7 @@ import axios from 'axios'
 
 const Book = {
   read: () => axios.get('/api/books'),
-  create: item => axios.post('/api/books', item),
-  update: (id, updates) => axios.put(`/api/books/${id}`, updates),
+  create: books => axios.post('/api/books', books),
   delete: id => axios.delete(`/api/books/${id}`)
 }
 
