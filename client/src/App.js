@@ -55,10 +55,12 @@ function App() {
 
   return (
     <BookContext.Provider value={bookState}>
-      <Switch>
-        <Route exact path="/" component={Search} />
-        <Route exact path="/saved" component={Saved} />
-      </Switch>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Search} />
+          <Route exact path="/saved" component={Saved} />
+        </Switch>
+      </Router>
     </BookContext.Provider>
   );
 }
