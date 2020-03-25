@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Saved from './pages/Saved'
 import Search from './pages/Search'
-import { Route } from 'react-router-dom'
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import BookContext from './utils/BookContext'
 import Book from './utils/Books'
 import axios from 'axios';
@@ -23,12 +23,13 @@ function App() {
     event.preventDefault()
 
     axios.get(`https://www.googleapis.com/books/v1/volumes?q=${bookState.bookSearchInput}&key=AIzaSyCE0ZsJWit1sRHec64nP7PNBEMp1_vtU9Y`)
-      .then(({data: { items }}) => {
+      .then(({ data: { items } }) => {
         let booksObj = items.map(obj => obj.volumeInfo)
-        setBookState({ 
+        setBookState({
           ...bookState,
-          bookSearchInput: '', 
-          searchedBooks: booksObj })
+          bookSearchInput: '',
+          searchedBooks: booksObj
+        })
       })
       .catch(e => console.error(e))
   }
@@ -40,22 +41,24 @@ function App() {
     Book.create(savedBook)
 
     books.push(savedBook)
-    setBookState({ ...bookState, books})
+    setBookState({ ...bookState, books })
   }
 
   bookState.handleDeleteBook = (id) => {
     Book.delete(id)
       .then(() => {
         let books = JSON.parse(JSON.stringify(bookState.books))
-        setBookState({ ...bookState, books})
+        setBookState({ ...bookState, books })
       })
       .catch(e => console.error(e))
-  } 
+  }
 
   return (
     <BookContext.Provider value={bookState}>
-      <Route exact path="/" component={Search} />
-      <Route exact path="/saved" component={Saved} />
+      <Switch>
+        <Route exact path="/" component={Search} />
+        <Route exact path="/saved" component={Saved} />
+      </Switch>
     </BookContext.Provider>
   );
 }
