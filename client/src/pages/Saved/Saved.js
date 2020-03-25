@@ -5,9 +5,6 @@ import Results from '../../components/Results'
 import SavedResultCard from '../../components/SavedResultCard'
 
 const SavedPage = () => {
-
-
-
     return (
         <>
             <Navbar />
